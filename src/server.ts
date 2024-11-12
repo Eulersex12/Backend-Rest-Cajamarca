@@ -26,7 +26,7 @@ const server = express()
 //Permitir conexiones hacia url exterior
 const corsOptions : CorsOptions = {
     origin : function (origin , callback) {
-        if (origin === process.env.FRONTEND_URL) {
+        if (!origin || origin === process.env.FRONTEND_URL) {
             callback(null, true)
         } else {
             callback(new Error('Error de conexion')
