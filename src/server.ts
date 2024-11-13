@@ -1,6 +1,7 @@
 import express from "express";
 import colors from "colors";
 import cors from "cors"
+import morgan from 'morgan'
 import router from "./router/routerUser";
 import routerProducts from "./router/routerProducts";
 
@@ -37,7 +38,11 @@ const corsOptions : CorsOptions = {
 server.use(cors(corsOptions))
 // aqui codigo para atraer datos de formularios, prueva tecnica usando tunder clien
 server.use(express.json())
-
+server.use(morgan('dev', {
+    stream: {
+        write: (message) => console.log(colors.bgBlue.white(message.trim())),
+      },
+}))
 server.use('/user', router)
 server.use('/products', routerProducts)
 
